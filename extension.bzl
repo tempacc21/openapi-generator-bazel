@@ -1,4 +1,5 @@
 "modules extension to use with openapi-generator-bazel"
+
 load("@bazel_tools//tools/build_defs/repo:jvm.bzl", "jvm_maven_import_external")
 
 def _openapi_generator_impl(module_ctx):
@@ -7,8 +8,8 @@ def _openapi_generator_impl(module_ctx):
             jvm_maven_import_external(
                 name = "openapi_tools_generator_bazel_cli",
                 artifact_sha256 = install.sha256,
-                artifact = "org.openapitools:openapi-generator-cli:" + install.version,
-                server_urls = install.server_urls,
+                artifact = "no.fremtind:openapi-patch:7.21-patch",
+                server_urls = ["https://nexus.intern.sparebank1.no/repository/releases"],
             )
 
 _cli = tag_class(attrs = {
@@ -26,4 +27,3 @@ openapi_gen = module_extension(
     implementation = _openapi_generator_impl,
     tag_classes = {"client": _cli},
 )
-
